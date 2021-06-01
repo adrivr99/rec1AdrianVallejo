@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dominolista;
+package main.java.dominolista;
 
 import java.util.Scanner;
 
