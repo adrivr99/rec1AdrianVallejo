@@ -11,34 +11,42 @@ import java.util.Random;
 public class MatrizLetras {
     private char[][] matriz = new char[10][10];
     Random rd = new Random();
+    // String para introducir todas las letras del abecedario en mayuscula
     String abecedario = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    // Constructor sin parametros que introduce letras aleatorias dentro de la matriz
     public MatrizLetras() {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-            matriz[i][j] = abecedario.charAt(rd.nextInt(abecedario.length()));
+                // Usamos el charAt para convertir la letra que cogemos de abecedario
+                matriz[i][j] = abecedario.charAt(rd.nextInt(abecedario.length()));
             }
         }
     }
 
-    public void imprimir(){
+    // Método para imprimir por pantalla la matriz
+    public void imprimir() {
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz.length; j++) {
-                System.out.printf(" %c ",matriz[i][j]);
+                System.out.printf(" %c ", matriz[i][j]);
             }
             System.out.println();
         }
     }
-    public void ordenar(){
+
+    // Metodo para ordenar las filas de la matriz de forma alfabetica usando Arrays.sort
+    public void ordenar() {
         for (int i = 0; i < matriz.length; i++) {
-           Arrays.sort(matriz[i]);
+            Arrays.sort(matriz[i]);
         }
     }
 
-    public int contarCaracter(char x){
+    // Método para contar el número de veces que se repite un carácter que pasamos como parametro en la matriz
+    public int contarCaracter(char x) {
         int contador = 0;
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz.length; j++) {
-                if (Arrays.asList(matriz[i][j]).contains(x)){
+                if (Arrays.asList(matriz[i][j]).contains(x)) {
                     contador++;
                 }
             }
