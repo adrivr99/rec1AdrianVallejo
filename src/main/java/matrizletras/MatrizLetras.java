@@ -46,7 +46,8 @@ public class MatrizLetras {
         int contador = 0;
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz.length; j++) {
-                if (Arrays.asList(matriz[i][j]).contains(x)) {
+                // Método asList convierte un Array en un ArrayList
+                if (x == matriz[i][j]) {
                     contador++;
                 }
             }
