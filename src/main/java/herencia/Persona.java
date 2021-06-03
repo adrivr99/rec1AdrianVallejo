@@ -5,12 +5,12 @@ import java.util.Objects;
 public class Persona {
     private String nombre;
     private String apellidos;
-    private int NIF;
+    private String NIF;
 
     public Persona() {
     }
 
-    public Persona(String nombre, String apellidos, int NIF) {
+    public Persona(String nombre, String apellidos, String NIF) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.NIF = NIF;
@@ -32,11 +32,11 @@ public class Persona {
         this.apellidos = apellidos;
     }
 
-    public int getNIF() {
+    public String getNIF() {
         return NIF;
     }
 
-    public void setNIF(int NIF) {
+    public void setNIF(String NIF) {
         this.NIF = NIF;
     }
 
@@ -45,7 +45,7 @@ public class Persona {
         int hash = 5;
         hash = 79 * hash + Objects.hashCode(this.nombre);
         hash = 79 * hash + Objects.hashCode(this.apellidos);
-        hash = 79 * hash + this.NIF;
+        hash = 79 * hash + Objects.hashCode((this.NIF));
         return hash;
     }
 

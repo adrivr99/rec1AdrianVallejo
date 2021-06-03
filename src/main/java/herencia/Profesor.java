@@ -3,11 +3,11 @@ package main.java.herencia;
 public abstract class Profesor extends Persona{
     private int idProfesor;
 
-    public Profesor() {
-
+    public Profesor(int idProfesor) {
+        this.idProfesor = idProfesor;
     }
 
-    public Profesor(int idProfesor, String nombre, String apellidos, int NIF) {
+    public Profesor(int idProfesor, String nombre, String apellidos, String NIF) {
         super(nombre, apellidos, NIF);
         this.idProfesor = idProfesor;
     }

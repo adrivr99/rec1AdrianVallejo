@@ -2,10 +2,10 @@ package main.java.herencia;
 
 import java.time.LocalDate;
 
-public abstract  class ProfesorTitular extends Profesor implements Comparable <ProfesorTitular> {
+public class ProfesorTitular extends Profesor implements Comparable <ProfesorTitular> {
     private LocalDate fechaPosesionTrabajo;
 
-    public ProfesorTitular(LocalDate fechaPosesionTrabajo, int idProfesor, String nombre, String apellidos, int NIF) {
+    public ProfesorTitular(LocalDate fechaPosesionTrabajo, int idProfesor, String nombre, String apellidos, String NIF) {
         super(idProfesor, nombre, apellidos, NIF);
         this.fechaPosesionTrabajo = fechaPosesionTrabajo;
     }
