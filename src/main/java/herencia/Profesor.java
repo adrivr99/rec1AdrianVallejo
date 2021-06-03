@@ -6,7 +6,7 @@ public abstract class Profesor extends Persona{
     public Profesor(int idProfesor) {
         this.idProfesor = idProfesor;
     }
-
+    // Constructor parametrizado
     public Profesor(int idProfesor, String nombre, String apellidos, String NIF) {
         super(nombre, apellidos, NIF);
         this.idProfesor = idProfesor;
@@ -22,11 +22,9 @@ public abstract class Profesor extends Persona{
 
     @Override
     public String toString() {
-        return super.toString() + "Profesor{" +
-                "idProfesor=" + idProfesor +
-                '}';
+        return super.toString() + ", Profesor, " + "idProfesor " + idProfesor;
     }
-
+    // Método abstracto para calcular la nómina de los profesores
     public abstract double importeNomina(double sueldoBase);
 
 }

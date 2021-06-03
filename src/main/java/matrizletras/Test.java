@@ -6,6 +6,7 @@ public class Test {
     public static void main(String[] args) {
         // Creamos la matriz y la imprimimos para mostrar su contenido
         MatrizLetras matriz = new MatrizLetras();
+        matriz.llenarAleatoriamente();
         matriz.imprimir();
         System.out.println("-----------------------------");
         // Ordenamos las filas de la matriz e imprimimos el resultado
@@ -22,7 +23,7 @@ public class Test {
         Scanner teclado = new Scanner(System.in);
         char letra = ' ';
         String abecedario = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        boolean entrada = false;
+        boolean entrada;
         // Creamos un do while para que el caracter que se introduzca por teclado sea siempre una letra Mayuscula
         do {
             System.out.println("Introduce una letra del abecedario de A a la Z");

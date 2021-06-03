@@ -75,6 +75,6 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "Persona{" + "nombre='" + nombre + ", apellidos='" + apellidos +", NIF=" + NIF;
+        return "Persona:" + "nombre: " + nombre + ", apellidos: " + apellidos +", NIF: " + NIF;
     }
 }

@@ -1,11 +1,6 @@
 package main.java.matrizletras;
 
-import main.java.dominolista.FichaDomino;
-
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 public class MatrizLetras {
@@ -16,12 +11,21 @@ public class MatrizLetras {
 
     // Constructor sin parametros que introduce letras aleatorias dentro de la matriz
     public MatrizLetras() {
-        for (int i = 0; i < 10; i++) {
+        /*for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 // Usamos el charAt para convertir la letra que cogemos de abecedario
                 matriz[i][j] = abecedario.charAt(rd.nextInt(abecedario.length()));
             }
+        }*/
+    }
+
+    public char [][] llenarAleatoriamente(){
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz.length; j++) {
+                matriz [i][j] = abecedario.charAt(rd.nextInt(abecedario.length()));
+            }
         }
+        return matriz;
     }
 
     // Método para imprimir por pantalla la matriz

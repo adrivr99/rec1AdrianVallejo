@@ -8,12 +8,18 @@ import java.util.Scanner;
 
 public class Test {
     public static void main(String[] args) {
+        //Creamos una lista para guardar a todos los profesores
         ArrayList <Profesor> lista = new ArrayList<>();
+        // Creamos un objeto ListaProfesores para utilizar el método importeTotal
         ListaProfesores listaProfesores = new ListaProfesores();
+        // Creamos la lista listaTitulares para guardar en ella los profesores que sean titulares
+        // Para luego ordenarlos por fecha
         ArrayList <ProfesorTitular> listaTitulares = new ArrayList<>();
 
 
         // Creamos los profesores
+        // Añadimos TODOS los profesores a lista
+        // Añadimos los titulares a listaTitulares
         ProfesorTitular profesorTitular1 = new ProfesorTitular(LocalDate.of(2019, Month.JANUARY,
                 10), 1, "Antonio", "Perez Bonito", "02490685S");
         lista.add(profesorTitular1);
@@ -62,14 +68,18 @@ public class Test {
         ProfesorInterino profesorInterino5 = new ProfesorInterino(LocalDate.of(2021, Month.MAY,1),
                 LocalDate.of(2021, Month.JUNE, 21),
                 10, "Fernando", "Torres", "61912564Z");
-        //Añadimos los profesores a la lista
         lista.add(profesorInterino5);
 
+        // Mostramos el listado de todos los profesores
         System.out.println("Lista de Profesores");
         for (Profesor listaAux : lista){
             System.out.println(listaAux);
         }
 
+        // Utilizamos Collection sort para ordenar los profesores por su DNI
+        // Utilizamos una expresión lambda
+        // Esto hace que x sea un profesor e y sea otro y los compara, y realiza esto con todos para ordenarlos por
+        // el atributo que se le indica, en este caso NIF que se obtine con getNif()
         Collections.sort(lista, (x, y) -> x.getNIF().compareToIgnoreCase(y.getNIF()));
         System.out.println("----------------------------------------");
         System.out.println("Lista de Profesores Ordenada por NIF");
@@ -79,22 +89,35 @@ public class Test {
 
         System.out.println("----------------------------------------");
         System.out.println("Importe total de las nóminas");
+        // Introducimos en el objeto listaProfesores de la clase ListaProfesores el listado de todos los profesores
+        // para realizar el método importeTotal
+        // como parámetro le pasamos un método leerSueldoBase que pedirá por teclado un sueldo Base que se aplica a todos
+        // los profesores
         listaProfesores.setLista(lista);
         System.out.println("Importe total " + listaProfesores.importeTotal(leerSueldoBase()) + " euros");
 
         System.out.println("----------------------------------------");
+        System.out.println("Profesores Titulares");
+        // Realizamos un bucle for para listar todos los profesores Titulares
         for (int i = 0; i < lista.size(); i++) {
+            // Utilizamos instanceof para determinar que el profesor que pasa en el bucle sea Titular
+            // De esta forma filtramos en la lista para obtener los profesores que queremos
             if (lista.get(i) instanceof ProfesorTitular){
+                // Obtenemos el nombre del profesor con get(i).getNombre()
+                // Luego utilizamos el método diasTrabajados para calcular los días
                 System.out.println("Profesor: " + lista.get(i).getNombre() + ", numero de días trabajados: " + listaProfesores.diasTrabajados((ProfesorTitular) lista.get(i)));
             }
         }
         System.out.println("----------------------------------------");
+        // Ordenamos la lista de profesores titulares (listaTitulares) por fecha que empezaron a trabajar
         Collections.sort(listaTitulares);
         System.out.println("Lista Profesores Titulares Ordenados por Fecha que empezaron a trabajar");
         for (int i = 0; i < listaTitulares.size(); i++) {
             System.out.println(listaTitulares.get(i));
         }
     }
+    // Método para introducir por teclado el sueldo base de un profesor
+    // Controlando que sea un número y que no sea menor de 0
     private static double leerSueldoBase() {
         boolean exit = false;
         Scanner teclado = new Scanner(System.in);
@@ -108,7 +131,7 @@ public class Test {
             } catch (NumberFormatException e) {
                 System.out.println("Tiene que ser un número");
             }
-            if (entero >= 5000 && entero <= 0) {
+            if (entero <= 0) {
                 exit = false;
             }
         } while (!exit);
