@@ -1,15 +1,17 @@
 package main.java.cursos;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 public class Ficheros {
-    public static ArrayList <Cursos> CSVCursos(String idFichero){
+    public static ArrayList<Cursos> CSVCursos(String idFichero) {
         // Variables para guardar los datos que se van leyendo
         String[] tokens;
 
@@ -50,4 +52,64 @@ public class Ficheros {
             return null;
         }
     }
+
+    // Método para general un archivo txt pasando por parametro un objeto Curso
+    public static void generarTxt(Cursos cursoAux) {
+        try (BufferedWriter flujo = new BufferedWriter(new FileWriter("CursosAcabados.txt", true))) {
+
+            //flujo.write sirve para escribir en el fichero
+            flujo.write(cursoAux.getTitulo() + cursoAux.getFechaFin());
+            //flujo.newLine sirve para pasar a la siguiente linea
+            flujo.newLine();
+            //flujo.flush sirve para liberar el buffer
+            flujo.flush();
+
+        } catch (IOException e) {
+            System.out.println("");
+
+        }
+    }
+
+    public static ArrayList<Cursos> leerJSON() throws IOException {
+        ObjectMapper mapeador = new ObjectMapper();
+        //Llenamos la lista con el fichero JSON.
+        // Utilizamos TypeReference para saber de que tipo son los objetos que se van a leer
+        ArrayList<Cursos> lista = mapeador.readValue(new File("CursosAcabados.json"), new TypeReference<ArrayList<Cursos>>() {});
+        return lista;
+    }
+
+    public static ArrayList<Cursos> leerTxt() {
+        ArrayList<Cursos> lista = new ArrayList<>();
+        String linea;
+        String[] tokens;
+
+        try (Scanner datosFichero = new Scanner(new FileReader("cursosAcabados.txt"))) {
+
+            while (datosFichero.hasNextLine()) {
+                linea = datosFichero.nextLine(); //Se lee la línea
+                tokens = linea.split("\t");
+                Cursos objetoCursos = new Cursos();
+
+                String title = "";
+                //Bucle for, como en ciertos objetos hay una tabulación de más en el atributo título cuando se hace split
+                // se separa en mas de 2 elementos.
+                // El ultimo siempre es la fecha, recorro el tamaño del array y lo guardo como título
+                // y cuando llego a la última posición lo paso como fecha
+                for (int i = 0; i < tokens.length; i++) {
+                    if (i != tokens.length) {
+                        title = tokens[i];
+                    } else {
+                        objetoCursos.setFechaFin(LocalDate.parse(tokens[1].trim()));
+                    }
+                }
+                objetoCursos.setTitulo(title);
+                lista.add(objetoCursos);
+
+            }
+            return lista;
+        } catch (FileNotFoundException e) {
+            return lista;
+        }
+    }
+
 }

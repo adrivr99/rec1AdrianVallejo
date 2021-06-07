@@ -106,7 +106,7 @@ public class Cursos implements Comparable <Cursos>{
 
     @Override
     public String toString() {
-        return "Instituto{" +
+        return "Cursos{" +
                 "centro='" + centro + '\'' +
                 ", codigo='" + codigo + '\'' +
                 ", titulo='" + titulo + '\'' +
@@ -116,16 +116,6 @@ public class Cursos implements Comparable <Cursos>{
                 ", fechaFin=" + fechaFin +
                 ", dirigidoA='" + dirigidoA + '\'' +
                 '}';
-    }
-
-    public static ArrayList<Cursos> terminadosMarzo(ArrayList <Cursos> curso){
-        ArrayList <Cursos> lista = new ArrayList<>();
-        for (int i = 0; i < curso.size(); i++) {
-            if(curso.contains("Terminado")){
-                lista.add(curso.get(i));
-            }
-        }
-        return lista;
     }
 
     @Override
