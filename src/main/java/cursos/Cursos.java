@@ -3,6 +3,7 @@ package main.java.cursos;
 import java.awt.image.CropImageFilter;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -120,9 +121,9 @@ public class Cursos implements Comparable <Cursos>{
 
     @Override
     public int compareTo(Cursos curso) {
-        if (this.fechaInicio == curso.fechaInicio){
+        if (this.fechaInicio == curso.fechaInicio) {
             return this.titulo.compareTo(curso.titulo);
-        }else {
+        } else {
             return this.fechaInicio.compareTo(curso.fechaInicio);
         }
     }

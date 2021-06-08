@@ -54,18 +54,18 @@ public class Ficheros {
     }
 
     // Método para general un archivo txt pasando por parametro un objeto Curso
-    public static void generarTxt(Cursos cursoAux) {
+    public static void generarTxt(Cursos curso) {
         try (BufferedWriter flujo = new BufferedWriter(new FileWriter("CursosAcabados.txt", true))) {
 
             //flujo.write sirve para escribir en el fichero
-            flujo.write(cursoAux.getTitulo() + cursoAux.getFechaFin());
+            flujo.write(curso.getTitulo() + "\t" + curso.getFechaFin());
             //flujo.newLine sirve para pasar a la siguiente linea
             flujo.newLine();
             //flujo.flush sirve para liberar el buffer
             flujo.flush();
 
         } catch (IOException e) {
-            System.out.println("");
+            System.out.println("No se ha podido introducir");
 
         }
     }
@@ -74,7 +74,8 @@ public class Ficheros {
         ObjectMapper mapeador = new ObjectMapper();
         //Llenamos la lista con el fichero JSON.
         // Utilizamos TypeReference para saber de que tipo son los objetos que se van a leer
-        ArrayList<Cursos> lista = mapeador.readValue(new File("CursosAcabados.json"), new TypeReference<ArrayList<Cursos>>() {});
+        ArrayList<Cursos> lista = mapeador.readValue(new File("CursosAcabados.json"), new TypeReference<ArrayList<Cursos>>() {
+        });
         return lista;
     }
 
@@ -82,29 +83,15 @@ public class Ficheros {
         ArrayList<Cursos> lista = new ArrayList<>();
         String linea;
         String[] tokens;
-
-        try (Scanner datosFichero = new Scanner(new FileReader("cursosAcabados.txt"))) {
+        try (Scanner datosFichero = new Scanner(new FileReader("CursosAcabados.txt"))) {
 
             while (datosFichero.hasNextLine()) {
                 linea = datosFichero.nextLine(); //Se lee la línea
                 tokens = linea.split("\t");
                 Cursos objetoCursos = new Cursos();
-
-                String title = "";
-                //Bucle for, como en ciertos objetos hay una tabulación de más en el atributo título cuando se hace split
-                // se separa en mas de 2 elementos.
-                // El ultimo siempre es la fecha, recorro el tamaño del array y lo guardo como título
-                // y cuando llego a la última posición lo paso como fecha
-                for (int i = 0; i < tokens.length; i++) {
-                    if (i != tokens.length) {
-                        title = tokens[i];
-                    } else {
-                        objetoCursos.setFechaFin(LocalDate.parse(tokens[1].trim()));
-                    }
-                }
-                objetoCursos.setTitulo(title);
+                objetoCursos.setTitulo(tokens[0]);
+                objetoCursos.setFechaFin(LocalDate.parse(tokens[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
                 lista.add(objetoCursos);
-
             }
             return lista;
         } catch (FileNotFoundException e) {
